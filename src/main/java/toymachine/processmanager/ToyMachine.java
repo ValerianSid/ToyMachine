@@ -18,40 +18,42 @@ public class ToyMachine {
         private IOService ioService;
 
     public ToyMachine() {
-        this.coinContainer = new CoinContainer(150);
-        this.toyContainer = new ToyContainer(5);
+        this.coinContainer = new CoinContainer(700);
+        this.toyContainer = new ToyContainer(3);
         this.ioService = new IOServiceImpl();
     }
 
     public void start(){
-        checkToyNumber();
         int numberOfTries = checkCoin();
         playaGame(numberOfTries);
+
     }
 
     private void playaGame(int numberOfTries){
         int numberOfGame = readFromFile();
-        for (int i = 0; i < numberOfTries; i++){
-            checkToyNumber();
-            if (numberOfGame % 5 == 0){
-                ioService.write("ПОБЕДА");
-                changeToyNumber();
+        for (int i = 1; i <= numberOfTries & checkToyNumber() == true; i++) {
+                if (numberOfGame % 5 == 0) {
+                    ioService.write("ПОБЕДА");
+                    changeToyNumber();
+                } else {
+                    ioService.write("Проиграли");
+                }
+                numberOfGame = numberOfGame + 1;
+                writeInFile(numberOfGame);
             }
-            else {
-                ioService.write("Проиграли");
-            }
-            numberOfGame = numberOfGame + 1;
-            writeInFile(numberOfGame);
-        }
+
 
     }
 
-    private void checkToyNumber(){
+    private boolean checkToyNumber(){
         try {
-            toyContainer.checkToyNumber();
+            if(toyContainer.checkToyNumber()){
+                return true;
+            }
         } catch (ProblemWithToysException e) {
             ioService.write(e.getMessage());
         }
+        return false;
     }
 
     private void changeToyNumber(){

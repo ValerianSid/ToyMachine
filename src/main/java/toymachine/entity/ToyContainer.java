@@ -9,12 +9,12 @@ public class ToyContainer {
         this.toyNumber = toyNumber;
     }
 
-    public void checkToyNumber() throws ProblemWithToysException{
+    public boolean checkToyNumber() throws ProblemWithToysException{
         if (toyNumber > 10 || toyNumber < 2){
             throw new ProblemWithToysException();
         }
-
-    }
+       return true;
+        }
 
     public void setToyNumber() {
         this.toyNumber = toyNumber - 1;
