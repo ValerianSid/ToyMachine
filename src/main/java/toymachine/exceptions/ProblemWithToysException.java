@@ -2,7 +2,7 @@ package toymachine.exceptions;
 
 public class ProblemWithToysException extends Exception {
 
-    public ProblemWithToysException(String name) {
-        super("Проверьте количество игрушек");
+    public ProblemWithToysException() {
+        super("Заберите ваши монеты. Требуется проверка количество игрушек");
     }
 }
